@@ -93,25 +93,38 @@
                     <i data-lucide="arrow-right-circle" class="inline w-5 h-5 mr-1 mb-0.5"></i> Daftar Sekarang
                 </a>
 
-                <!-- Hero Video Embed (YouTube) -->
-                <!-- Ganti URL di bagian 'src' dengan link embed video Anda -->
+                <!-- Hero Video Embed with Custom Thumbnail -->
                 <div class="mt-10 mx-2 relative group">
                     <!-- Efek Glow di belakang video -->
                     <div class="absolute -inset-1 bg-gradient-to-r from-primary to-emerald-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
                     
-                    <!-- Container Video -->
-                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white aspect-video">
-                        <iframe 
-                            class="w-full h-full" 
-                            src="https://www.youtube.com/embed/yg2Hv8Y0rWU?si=xJxQeijgIm_MZwPP" 
-                            title="Video Profil Kampoeng Quran" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            allowfullscreen>
-                        </iframe>
+                    <!-- Container Video Interaktif -->
+                    <!-- GANTI 'yg2Hv8Y0rWU' DI FUNGSI playVideo DENGAN ID YOUTUBE ANDA -->
+                    <div 
+                        class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white aspect-video cursor-pointer"
+                        onclick="playVideo(this, 'yg2Hv8Y0rWU')"
+                    >
+                        <!-- 1. Custom Thumbnail Image (GANTI SRC DI BAWAH INI) -->
+                        <img 
+                            src="https://lh3.googleusercontent.com/pw/AP1GczMBux4v4soGpK6u43K9jqQBKiSOi-6edi5PprtMALxUVZD9A3eZQ42c2hNmA1vuePwuqCv5wstvpin7_Vle9OqVGLpABbTyyM2vizPIXqoHNXeg1Ii3wzcXrHUycak9A9yRb-TRcQPmscgvF5csSMVZ=w1280-h720-s-no-gm?authuser=0?q=80&w=1280&h=720&auto=format&fit=crop" 
+                            alt="Video Thumbnail" 
+                            class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                        >
+                        
+                        <!-- 2. Overlay Gelap (Agar tombol play terlihat jelas) -->
+                        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition duration-300"></div>
+
+                        <!-- 3. Tombol Play -->
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-16 h-16 bg-white/90 text-primary rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm group-hover:scale-110 transition duration-300 pl-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <p class="text-xs text-gray-400 mt-2 italic">Tonton cuplikan suasana kelas kami</p>
+                <p class="text-xs text-gray-400 mt-2 italic">Klik tombol play untuk menonton video</p>
 
             </div>
         </header>
@@ -421,6 +434,20 @@
         // Initialize Lucide Icons
         lucide.createIcons();
 
+        // Video Play Logic
+        function playVideo(container, videoId) {
+            container.innerHTML = `
+                <iframe 
+                   class="w-full h-full" 
+                   src="https://www.youtube.com/embed/oXZxB8ABsh0?autoplay=1&rel=0" 
+                   title="Video Profil" 
+                   frameborder="0" 
+                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                   allowfullscreen>
+                </iframe>
+            `;
+        }
+
         // FAQ Toggle Logic
         function toggleFaq(element) {
             // Close all others first (Accordion style) - optional
@@ -433,12 +460,6 @@
                 element.classList.remove('faq-active');
                 content.style.maxHeight = '0';
             } else {
-                // If you want to close others when one opens, uncomment loop below
-                /* allFaqs.forEach(item => {
-                    item.classList.remove('faq-active');
-                    item.querySelector('.faq-content').style.maxHeight = '0';
-                });
-                */
                 element.classList.add('faq-active');
                 content.style.maxHeight = content.scrollHeight + "px";
             }
